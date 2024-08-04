@@ -1,0 +1,21 @@
+name = "turu-api"
+compatibility_date = "2023-12-01"
+
+# [vars]
+# MY_VAR = "turu-api"
+
+# [[kv_namespaces]]
+# binding = "turu-api"
+# id = "3c820f8e6cf84d3a8d57bd177b848a4d"
+
+# [[r2_buckets]]
+# binding = "MY_BUCKET"
+# bucket_name = "my-bucket"
+
+# [[d1_databases]]
+# binding = "MENDING-TURU"
+# database_name = "turu-dulu-gaes"
+# database_id = ""
+
+# [ai]
+# binding = "AI"
