@@ -7,3 +7,7 @@ workers_dev = false
 kv_namespaces = [
   { binding = "turu-api", id = "2a36c828053a4a34be324632ecf2f193" }
 ]
+
+[observability]
+enabled = true
+head_sampling_rate = 1 # optional. default = 1.
