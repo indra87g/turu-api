@@ -1,8 +1,17 @@
 import { Hono } from "hono";
+import { html } from "hono/html";
+import { prettyJSON } from 'hono/pretty-json'
+import { config } from "dotenv";
 
+import { Calculate } from "./routes/calculate";
 import { Guest } from "./routes/guest";
 
+config()
+
 const app = new Hono().basePath("/api");
+const test = process.env.DATABASE_NAME
+app.use(prettyJSON())
+app.notFound((c) => c.json({ message: 'Not Found', ok: false }, 404))
 
 app.get("/", (c) => {
   return c.json({
@@ -14,42 +23,15 @@ app.get("/", (c) => {
     license: "MIT",
     github: "https://github.com/indra87g/turu-api",
     status: "https://stats.uptimerobot.com/6tNlOje1Uv",
+    database: test,
+    success: true,
   });
 });
 app.get("/hello/:name", (c) => {
   const name = c.req.param("name");
   return c.text(`Hello, ${name}!`);
 });
-app.get("/calculate", (c) => {
-  const operation = c.req.query("operation");
-  const num1 = parseFloat(c.req.query("num1"));
-  const num2 = parseFloat(c.req.query("num2"));
-
-  let result;
-
-  switch (operation) {
-    case "add":
-      result = num1 + num2;
-      break;
-    case "subtract":
-      result = num1 - num2;
-      break;
-    case "multiply":
-      result = num1 * num2;
-      break;
-    case "divide":
-      if (num2 === 0) {
-        return;
-        c.text("Error: Division by zero", 400);
-      }
-      result = num1 / num2;
-      break;
-    default:
-      return c.text("Error: Invalid operation", 400);
-  }
-
-  return c.json({ result });
-});
+app.route("/calculate", Calculate);
 app.route("/guest", Guest);
 
 export default app;

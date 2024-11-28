@@ -4,9 +4,12 @@
     "dev": "bun run --hot src/index.ts"
   },
   "dependencies": {
-    "@prisma/client": "^5.13.0",
+    "@hono/swagger-ui": "^0.5.0",
+    "@prisma/client": "^5.22.0",
+    "@prisma/extension-accelerate": "^1.2.1",
+    "dotenv": "^16.4.5",
     "hono": "^4.6.3",
-    "prisma": "^5.13.0"
+    "prisma": "^5.22.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20241112.0",

@@ -1,3 +1,5 @@
+# Turu REST API
+
 To install dependencies:
 ```sh
 bun install
