@@ -12,7 +12,7 @@ export const getGuests = async (c: Context) => {
         message: "TURU REST API Guest",
         data: guests,
       },
-      200
+      200,
     );
   } catch (e: unknown) {
     console.error(`Error getting guest: ${e}`);
@@ -21,8 +21,8 @@ export const getGuests = async (c: Context) => {
 
 export async function newGuest(c: Context) {
   try {
-    const name = String(c.req.query('name'));
-    const message = String(c.req.query('message'));
+    const name = String(c.req.query("name"));
+    const message = String(c.req.query("message"));
 
     const guest = await prisma.guest.create({
       data: {
@@ -37,7 +37,7 @@ export async function newGuest(c: Context) {
         message: "Success",
         data: guest,
       },
-      201
+      201,
     );
   } catch (e: unknown) {
     console.error(`Error creating guest: ${e}`);
