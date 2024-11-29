@@ -17,7 +17,7 @@ app.get("/", (c) => {
   return c.json({
     name: "TURU REST API",
     description:
-      "Free REST API for lazy people (fyi: turu is mean sleep in indonesia)",
+      "Free REST API for lazy people (fyi: turu is mean sleep in indonesia, Javanese language)",
     author: "indra87g (Programmer Pemalas)",
     version: "0.1.1",
     license: "MIT",
