@@ -90,4 +90,9 @@ jobs:
         with:
           project_id: ${{ vars.NEON_PROJECT_ID }}
           branch: preview/pr-${{ github.event.number }}-${{ needs.setup.outputs.branch }}
+<<<<<<< HEAD
           api_key: ${{ secrets.NEON_API_KEY }}
+||||||| parent of 7810460 (test(index): add test unit for /api and /api/hello)
+=======
+          api_key: ${{ secrets.NEON_API_KEY }}
+>>>>>>> 7810460 (test(index): add test unit for /api and /api/hello)

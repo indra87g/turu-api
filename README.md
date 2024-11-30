@@ -6,7 +6,7 @@ Free REST API for lazy people.
 
 ## Main Feature
 - Fast and Secure⚡ (thanks to Cloudflare and Bunjs)
-- 100% Free, No Limit😎
+- 100% Free, No Limit😎 (dont DDOS my REST API you f*cking idiot!)
 - Battery Included🔋
 - 100+ Useful Endpoint (in progress😁)
 
