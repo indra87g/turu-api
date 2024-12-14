@@ -2,7 +2,7 @@ import { Hono } from "hono";
 
 const calculate = new Hono()
 
-calculate.get("/calculate", (c) => {
+calculate.get("/", (c) => {
   const operation = c.req.query("operation");
   const num1 = parseFloat(c.req.query("num1"));
   const num2 = parseFloat(c.req.query("num2"));
@@ -21,20 +21,25 @@ calculate.get("/calculate", (c) => {
       break;
     case "divide":
       if (num2 === 0) {
-        return;
-        c.text("Error: Division by zero", 400);
+        c.json({
+          success: false,
+          message: "Cannot divide with zero!"
+        }, 400);
       }
       result = num1 / num2;
       break;
     default:
-      return c.text("Error: Invalid operation", 400);
+      return c.json({
+        success: false,
+        message: "Invalid operation!",
+      }, 400);
   }
 
   return c.json({
     success: true,
     message: "Operation success", 
     data: result, 
-  });
+  }, 200);
 });
 
 export const Calculate = calculate;
