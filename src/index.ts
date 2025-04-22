@@ -3,11 +3,11 @@ import { html } from "hono/html";
 import { prettyJSON } from 'hono/pretty-json'
 
 import { Calculate } from "./routes/calculate";
-import { Guest } from "./routes/guest";
+// import { Guest } from "./routes/guest"; Not implemented
 
 const app = new Hono().basePath("/api");
-app.use(prettyJSON())
-app.notFound((c) => c.json({ success: false, message: 'Endpoint not found!' }, 404))
+app.use(prettyJSON());
+app.notFound((c) => c.json({ success: false, message: 'Endpoint not found!' }, 404));
 
 app.get("/", (c) => {
   return c.json({
@@ -15,7 +15,7 @@ app.get("/", (c) => {
     name: "TURU REST API",
     description:
       "Free REST API for lazy people (fyi: turu is mean sleep in indonesia, Javanese language)",
-    author: "indra87g (Programmer Pemalas)",
+    author: "indra87g",
     version: "0.1.2",
     license: "MIT",
     github: "https://github.com/indra87g/turu-api",
@@ -27,6 +27,6 @@ app.get("/hello/:name", (c) => {
   return c.text(`Hello, ${name}!`);
 });
 app.route("/calculate", Calculate);
-app.route("/guest", Guest);
+// app.route("/guest", Guest);
 
 export default app;
