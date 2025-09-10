@@ -1,22 +1,13 @@
 import { Hono } from "hono";
-import { sign, verify } from 'hono/jwt'
-import { getPrisma } from '../prismaFunction';
-
 import { getGuests, newGuest } from "../controllers/GuestController";
+import { Env } from "../supabaseClient";
 
-const guest = new Hono<{
-  Bindings: {
-    DATABASE_URL: string
-    JWT_SECRET: string
-  }
-  Variables: {
-    userId: string
-  }
-}>()
+const guest = new Hono<{ Bindings: Env }>();
 
-guest.post("/", async (c) => {
-  const prisma = getPrisma(c.env.DATABASE_URL)
-});
-guest.get("/new", (c) => newGuest(c));
+// GET /api/guest -> Get all guests
+guest.get("/", getGuests);
+
+// POST /api/guest -> Create a new guest
+guest.post("/", newGuest);
 
 export const Guest = guest;
