@@ -1,45 +1,63 @@
 import { Context } from "hono";
+import { getSupabase, Env } from "../supabaseClient";
 
-import prisma from "../../prisma/client";
-
-export const getGuests = async (c: Context) => {
+export const getGuests = async (c: Context<{ Bindings: Env }>) => {
   try {
-    const guests = await prisma.guest.findMany({ orderBy: { id: "desc" } });
+    const supabase = getSupabase(c);
+    const { data, error } = await supabase
+      .from("Guest")
+      .select("*")
+      .order("id", { ascending: false });
+
+    if (error) {
+      console.error("Error getting guests:", error);
+      return c.json({ success: false, message: "Failed to fetch guests" }, 500);
+    }
 
     return c.json(
       {
         success: true,
         message: "TURU REST API Guest",
-        data: guests,
+        data: data,
       },
-      200,
+      200
     );
   } catch (e: unknown) {
     console.error(`Error getting guest: ${e}`);
+    return c.json({ success: false, message: "An unexpected error occurred" }, 500);
   }
 };
 
-export async function newGuest(c: Context) {
+export async function newGuest(c: Context<{ Bindings: Env }>) {
   try {
-    const name = String(c.req.query("name"));
-    const message = String(c.req.query("message"));
+    const name = c.req.query("name");
+    const message = c.req.query("message");
 
-    const guest = await prisma.guest.create({
-      data: {
-        name: name,
-        message: message,
-      },
-    });
+    if (!name || !message) {
+        return c.json({ success: false, message: "Name and message are required" }, 400);
+    }
+
+    const supabase = getSupabase(c);
+    const { data, error } = await supabase
+      .from("Guest")
+      .insert([{ name: String(name), message: String(message) }])
+      .select();
+
+    if (error) {
+      console.error("Error creating guest:", error);
+      return c.json({ success: false, message: "Failed to create guest" }, 500);
+    }
 
     return c.json(
       {
         success: true,
         message: "Success",
-        data: guest,
+        data: data,
       },
-      201,
+      201
     );
   } catch (e: unknown) {
     console.error(`Error creating guest: ${e}`);
+    return c.json({ success: false, message: "An unexpected error occurred" }, 500);
   }
 }
