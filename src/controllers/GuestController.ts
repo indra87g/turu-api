@@ -30,8 +30,7 @@ export const getGuests = async (c: Context<{ Bindings: Env }>) => {
 
 export async function newGuest(c: Context<{ Bindings: Env }>) {
   try {
-    const name = c.req.query("name");
-    const message = c.req.query("message");
+    const { name, message } = await c.req.json();
 
     if (!name || !message) {
         return c.json({ success: false, message: "Name and message are required" }, 400);
