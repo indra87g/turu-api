@@ -1,9 +1,7 @@
 import { Hono } from "hono";
-import { html } from "hono/html";
 import { prettyJSON } from 'hono/pretty-json'
 
 import { Calculate } from "./routes/calculate";
-import { Guest } from "./routes/guest";
 
 const app = new Hono().basePath("/api");
 app.use(prettyJSON());
@@ -27,6 +25,5 @@ app.get("/hello/:name", (c) => {
   return c.text(`Hello, ${name}!`);
 });
 app.route("/calculate", Calculate);
-app.route("/guest", Guest);
 
 export default app;

@@ -1,6 +1,25 @@
-modules = ["nodejs-20"]
+modules = ["nodejs-20", "bun-1.2"]
 [agent]
 expertMode = true
 
 [nix]
 channel = "stable-25_05"
+
+[workflows]
+
+[[workflows.workflow]]
+name = "Bun"
+mode = "sequential"
+author = 31133554
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "bun install"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "bun run dev"
+
+[[ports]]
+localPort = 3000
+externalPort = 80
