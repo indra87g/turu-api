@@ -109,6 +109,11 @@ const openApiSpec = {
 
 const app = new Hono();
 
+app.get('/', async (c) => {
+  const html = await Bun.file('src/static/index.html').text();
+  return c.html(html);
+});
+
 app.get('/openapi.json', (c) => c.json(openApiSpec));
 app.get('/docs', swaggerUI({ url: '/openapi.json' }));
 
