@@ -11,8 +11,7 @@
     "@prisma/extension-accelerate": "^1.2.1",
     "@supabase/supabase-js": "^2.57.4",
     "dotenv": "^16.4.5",
-    "hono": "^4.6.3",
-    "prisma": "^5.22.0"
+    "hono": "^4.6.3"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20241112.0",
