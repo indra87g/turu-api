@@ -4,11 +4,11 @@ import { swaggerUI } from '@hono/swagger-ui'
 
 import { Calculate } from "./routes/calculate";
 
-const app = new Hono().basePath("/api");
-app.use(prettyJSON());
-app.notFound((c) => c.json({ success: false, message: 'Endpoint not found!' }, 404));
+const apiApp = new Hono();
+apiApp.use(prettyJSON());
+apiApp.notFound((c) => c.json({ success: false, message: 'Endpoint not found!' }, 404));
 
-app.get("/", (c) => {
+apiApp.get("/", (c) => {
   return c.json({
     success: true,
     name: "TURU REST API",
@@ -21,11 +21,11 @@ app.get("/", (c) => {
     status: "https://stats.uptimerobot.com/6tNlOje1Uv",
   });
 });
-app.get("/hello/:name", (c) => {
+apiApp.get("/hello/:name", (c) => {
   const name = c.req.param("name");
   return c.text(`Hello, ${name}!`);
 });
-app.route("/calculate", Calculate);
+apiApp.route("/calculate", Calculate);
 
 const openApiSpec = {
   openapi: '3.0.0',
@@ -107,7 +107,11 @@ const openApiSpec = {
   },
 };
 
+const app = new Hono();
+
 app.get('/openapi.json', (c) => c.json(openApiSpec));
-app.get('/docs', swaggerUI({ url: '/api/openapi.json' }));
+app.get('/docs', swaggerUI({ url: '/openapi.json' }));
+
+app.route('/api', apiApp);
 
 export default app;
