@@ -16,6 +16,8 @@ pids
 *.seed
 *.pid.lock
 bun.lockb
+bun.lock
+*.lock
 package-lock.json
 prisma/migrations/migration_lock.toml
 
@@ -53,6 +55,7 @@ web_modules/
 
 # Optional npm cache directory
 .npm
+.upm
 
 # Optional eslint cache
 .eslintcache

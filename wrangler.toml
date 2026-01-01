@@ -1,5 +1,6 @@
 name = "turu-api"
 main = "src/index.ts"
+minify = true
 compatibility_flags = [ "nodejs_compat" ]
 compatibility_date = "2025-12-25"
 
