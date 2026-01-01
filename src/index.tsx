@@ -3,8 +3,8 @@ import { prettyJSON } from "hono/pretty-json";
 import { swaggerUI } from "@hono/swagger-ui";
 
 import { Calculate } from "./routes/calculate";
-import { Home } from "./miscs/Home";
-import { openApiSpec } from "./miscs/openapi";
+import { Home } from "./components/Home";
+import { openApiSpec } from "./docs/openapi";
 
 const apiApp = new Hono();
 apiApp.use(prettyJSON());
